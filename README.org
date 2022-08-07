@@ -2,4 +2,4 @@
   This is an implementation of the [[https://github.com/knight-lang/knight-lang/blob/master/specs.md][Knight spec]] in [[https://codeberg.org/ngn/k][ngn/k]].  Mostly done as an excuse to build a
   roll-your-own state machine for the lexer.  Not much more to say for now.
 
-  Oh!  I think this version should be pronounces "kuh-NIGHT", but that's just me.
+  Oh!  I think this version should be pronounces "KUH-night", but that's just me.
