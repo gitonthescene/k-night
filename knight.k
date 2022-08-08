@@ -13,8 +13,8 @@ tr:(*'tb)?/:1_'tb:1_'"\n"\1_"
  DusdwcwiJIinu
  ccccCcccccccc
  CusdwcwiJIinu
- IusdwcwIJIiiu
- JusdwcwiJIiiu
+ IusdwcwIJIinu
+ JusdwcwiJIinu
  iusdwcwiJIiiu
  nusdwcwiJIinu
  wusdwcwiJIinu"
@@ -52,12 +52,12 @@ FNS:*''+(("TRUE";0;{y;(x;(`bl;1))})
  (,"~";1;{e:*r:eva[x;y];$[`qt~e;:r;];(t;v):*1_r;(e;(`nm;-:*:v))})
  (,"+";2;{e:*r:eva[x;y];$[`qt~e;:r;];(a;b):1_r;v:*|+(a;(cnv@*a)b);(e;(*a;@[(+/;,/);`st~*a]v))})
  (,"-";2;{e:*r:eva[x;y];$[`qt~e;:r;];(a;b):1_r;v:*|+(a;(cnv`nm)b);(e;(`nm;-/v))})
- (,"*";2;{e:*r:eva[x;y];$[`qt~e;:r;];(a;b):1_r;v:*|+(a;(cnv`nm)b);(*a;@[(*/;{(y*#x)#x}.);`st~*a]v)})
+ (,"*";2;{e:*r:eva[x;y];$[`qt~e;:r;];(a;b):1_r;v:*|+(a;(cnv`nm)b);(e;(*a;@[(*/;{(y*#x)#x}.);`st~*a]v))})
  (,"/";2;{e:*r:eva[x;y];$[`qt~e;:r;];(a;b):1_r;v:*|+(a;(cnv`nm)b);(s;r):sgn@%/v;(e;(`nm;s*_r))})
  (,"%";2;{e:*r:eva[x;y];$[`qt~e;:r;];(a;b):1_r;v:*|+(a;(cnv`nm)b);(x;y):v;(s;x):sgn@x;(e;(`nm;s*(y!x)))})
  (,"^";2;{e:*r:eva[x;y];$[`qt~e;:r;];(a;b):1_r;v:*|+(a;(cnv`nm)b);(e;(`nm;*/#/|:v))})
  (,"<";2;{e:*r:eva[x;y];$[`qt~e;:r;];(a;b):1_r;v:*|+(a;(cnv@*a)b);(e;(`bl;@[(</;</;*>:);`nm`bl`st?*a]v))})
- (,">";2;{e:*r:eva[x;y];$[`qt~e;:r;];(a;b):1_r;v:*|+(a;(cnv@*a)b);(`bl;@[(>/;>/;*>:);`nm`bl`st?*a]v)})
+ (,">";2;{e:*r:eva[x;y];$[`qt~e;:r;];(a;b):1_r;v:*|+(a;(cnv@*a)b);(e;(`bl;@[(>/;>/;*>:);`nm`bl`st?*a]v))})
  (,"?";2;{e:*r:eva[x;y];$[`qt~e;:r;];(e;(`bl;~/1_r))})
  (,"&";2;{(a;b):y;(e;a):r:evl[x;a];$[(`qt~e)|(`bl;0)~blc(a);r;evl[e;b]]})
  (,"|";2;{(a;b):y;(e;a):r:evl[x;a];$[(`qt~e)|(`bl;1)~blc(a);r;evl[e;b]]})
@@ -70,7 +70,7 @@ FNS:*''+(("TRUE";0;{y;(x;(`bl;1))})
 
 art:!/2#FNS
 FN:!/FNS[0 2]
-prs:{(tk;tr):{tk:*x;r:1_x;$[~`fn=_*e:*tk;(,1_tk),r,,e;[rr:(0^art@*e:*|*tk)o/,1_tk;(,*rr),r,,(`fn;e;1_rr)]]}@,dsp@x;
+prs:{(tk;tr):{tk:*x;r:1_x;$[`fn=_*e:*tk;[rr:(0^art@*e:*|*tk)o/,1_tk;(,*rr),r,,(`fn;e;1_rr)];(,1_tk),r,,e]}@,dsp@x;
      $[#tk;`err@"incomplete parse:",`k@tk;];tr}
 evl:{$[`qt~x;:(x;y);|/`st`nm`bl`nl`bk=t:*y;:(x;y);`vr~t;:$[^(!x)?y@1;`err@`k@^y@1;(x;x[y@1])]];evf[x;y]}
 evf:{(t;n;a):y;$[^(!FN)?*n;:`err@"no func:",n;];FN[*n][x;a]}
