@@ -75,12 +75,6 @@ prs:{(tk;tr):{tk:*x;r:1_x;$[~`fn=_*e:*tk;(,1_tk),r,,e;[rr:(0^art@*e:*|*tk)o/,1_t
      $[#tk;`err@"incomplete parse:",`k@tk;];tr}
 evl:{$[`qt~t:*y;:y;|/`st`nm`bl`nl`bk=t;:(x;y);`vr~t;:$[^(!x)?y@1;`err@`k@^y@1;(x;x[y@1])]];evf[x;y]}
 evf:{(t;n;a):y;$[^(!FN)?*n;:`err@"no func:",n;];FN[*n][x;a]}
-eva:{{(e;v):evl[*x;y];$[`qt~e;:(e;v);];e,(1_x),,v}/[,x;y]}
-
-/ FIX FIX FIX
-/ compare -- evl[()!()] prs ";= ab 3;= de 5 :OUTPUT +ab de"
-/ with    -- evl[env] prs ";= ab 3;= de 5 :OUTPUT +ab de"
-/ where env is (,"nm")!,(`nm;33)
-/ simpler -- evl[()!()] prs "OUTPUT 'no'"
+eva:{{(e;v):evl[*x;y];$[`qt~e;:(e;v);];e,1_x,,v}/[,x;y]}
 
 2(*|:)/$[#x;evl[(,,"x")!,(`nm;33)] prs@1:*x;]
