@@ -72,7 +72,7 @@ art:!/2#FNS
 FN:!/FNS[0 2]
 prs:{(tk;tr):{tk:*x;r:1_x;$[~`fn=_*e:*tk;(,1_tk),r,,e;[rr:(0^art@*e:*|*tk)o/,1_tk;(,*rr),r,,(`fn;e;1_rr)]]}@,dsp@x;
      $[#tk;`err@"incomplete parse:",`k@tk;];tr}
-evl:{$[`qt~t:*y;:y;|/`st`nm`bl`nl`bk=t;:(x;y);`vr~t;:$[^(!x)?y@1;`err@`k@^y@1;(x;x[y@1])]];evf[x;y]}
+evl:{$[`qt~x;:(x;y);|/`st`nm`bl`nl`bk=t:*y;:(x;y);`vr~t;:$[^(!x)?y@1;`err@`k@^y@1;(x;x[y@1])]];evf[x;y]}
 evf:{(t;n;a):y;$[^(!FN)?*n;:`err@"no func:",n;];FN[*n][x;a]}
 eva:{{(e;v):evl[*x;y];$[`qt~e;:(e;v);];e,1_x,,v}/[,x;y]}
 
