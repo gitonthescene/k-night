@@ -29,8 +29,8 @@ blc:{(t;v):x;$[`st~t;(`bl;~~#v);`nl~t;(`bl;0);`bl~t;x;(`bl;~0=v)]}
 s2n:{r*~^r:(-1+2*~"-"=*x)*`I$#/|(,t),+/&\~"0:"'t:(|/"+-"=*x)_x:(&\~^" \n\r\t"?)_x}
 nmc:{(t;v):x;$[`st~t;(`nm;s2n@v);`nl~t;(`nm;0);`bl~t;(`nm;v);x]}
 cnv:`st`bl`nm!(stc;blc;nmc)
-math:{e:*r:eva[y;z];$[`qt~e;:r;];(t;v):+1_r;(e;(`nm;x[v]))}
 sgn:{(s[1];*/s:1(-1+2*~0>)\x)}
+dbg:{`0:x,`k@y}
 MXRND:32767
 `prng@0
 FNS:*''+(("TRUE";0;{y;(x;(`bl;1))})
@@ -41,7 +41,7 @@ FNS:*''+(("TRUE";0;{y;(x;(`bl;1))})
  (,":";1;{eva[x;y]})
  ("EVAL";1;{e:*r:eva[x;y];$[`qt~e;:r;];(t;s):*1_r;evl[e;prs s]})
  ("BLOCK";1;{(x;(`bk;*y))})
- ("CALL";1;{e:*r:eva[x;y];$[`qt~e;:r;~`bk~*r:*1_r;:`err@"BLOCK"];evl[e;r[1]]})
+ ("CALL";1;{e:*r:eva[x;y];$[`qt~e;:r;r];$[`bk~*r:*1_r;evl[e;r[1]];:`err@"BLOCK"]})
  (,"`";1;{e:*r:eva[x;y];$[`qt~e;:r;];(t;s):*1_r;evl[e;(`st;"\n"/."\\",s)]})
  ("QUIT";1;{e:*r:eva[x;y];$[`qt~e;:r;];(t;b):*1_r;(`qt;b)})
  (,"!";1;{e:*r:eva[x;y];$[`qt~e;:r;];(t;b):blc(*1_r);(e;(`bl;~b))})
