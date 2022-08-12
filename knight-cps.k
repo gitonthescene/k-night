@@ -38,44 +38,40 @@ FNS:*''+(("TRUE";0;{y;(x;(`bl;1))})
  ("NULL";  0;{y;(x;(`nl;()))})
  ("PROMPT";0;{y;(x;(`st;1:1))})
  ("RANDOM";0;{y;(x;(`nm;*1?MXRND))})
- (,":";    1;{,/eva[x;y]})
- ("EVAL";  1;{(e;a):$[`qt~*r:eva[x;y];:r;r];(t;s):*a;evl[e;prs s]})
- ("BLOCK"; 1;{(x;(`bk;*y))})
- ("CALL";  1;{(e;a):$[`qt~*r:eva[x;y];:r;r];$[`bk~*a:*a;evl[e;a[1]];:`err@"BLOCK"]})
- (,"`";    1;{(e;a):$[`qt~*r:eva[x;y];:r;r];(t;s):*a;(e;(`st;"\n"/."\\",s))})
- ("QUIT";  1;{(e;a):$[`qt~*r:eva[x;y];:r;r];(t;b):*a;(`qt;b)})
- (,"!";    1;{(e;a):$[`qt~*r:eva[x;y];:r;r];(t;b):blc(*a);(e;(`bl;~b))})
- ("LENGTH";1;{(e;a):$[`qt~*r:eva[x;y];:r;r];(t;s):*a;(e;#s)})
- ("DUMP";  1;{(e;a):$[`qt~*r:eva[x;y];:r;r];(t;v):r:*a;(`st;,/(((`nl`bl`st`nm!("Null";"Boolean";"String";"Number")))t;,"(";*|stc@r;,")"))})
- ("OUTPUT";1;{(e;a):$[`qt~*r:eva[x;y];:r;r];(t;s):stc(*a);`1:$["\\"=*|s;-1_s;s,"\n"];(e;(`nl;()))})
- ("ASCII"; 1;{(e;a):$[`qt~*r:eva[x;y];:r;r];(t;b):*a;(e;(`st`nm@t~`st;$[`st~t;0+*b;`nm~t;`c$b;`err@"ASCII"]))})
- (,"~";    1;{(e;a):$[`qt~*r:eva[x;y];:r;r];(e;(`nm;-:*|nmc@*a))})
- (,"+";    2;{(e;(a;b)):$[`qt~*r:eva[x;y];:r;r];v:*|+(a;(cnv@*a)b);(e;(*a;((+/;,/)`st~*a)v))})
- (,"-";    2;{(e;(a;b)):$[`qt~*r:eva[x;y];:r;r];v:*|+(a;(cnv`nm)b);(e;(`nm;-/v))})
- (,"*";    2;{(e;(a;b)):$[`qt~*r:eva[x;y];:r;r];v:*|+(a;(cnv`nm)b);(e;(*a;@[(*/;{(y*#x)#x}.);`st~*a]v))})
- (,"/";    2;{(e;(a;b)):$[`qt~*r:eva[x;y];:r;r];v:*|+(a;(cnv`nm)b);(s;r):sgn@%/v;(e;(`nm;s*_r))})
- (,"%";    2;{(e;(a;b)):$[`qt~*r:eva[x;y];:r;r];v:*|+(a;(cnv`nm)b);(x;y):v;(s;x):sgn@x;(e;(`nm;s*(y!x)))})
- (,"^";    2;{(e;(a;b)):$[`qt~*r:eva[x;y];:r;r];v:*|+(a;(cnv`nm)b);(e;(`nm;*/#/|:v))})
- (,"<";    2;{(e;(a;b)):$[`qt~*r:eva[x;y];:r;r];v:*|+(a;(cnv@*a)b);(e;(`bl;@[(</;</;*>:);`nm`bl`st?*a]v))})
- (,">";    2;{(e;(a;b)):$[`qt~*r:eva[x;y];:r;r];v:*|+(a;(cnv@*a)b);(e;(`bl;@[(>/;>/;*>:);`nm`bl`st?*a]v))})
- (,"?";    2;{(e;a):$[`qt~*r:eva[x;y];:r;r];(e;(`bl;~/a))})
- (,"&";    2;{(a;b):y;(e;a):r:evl[x;a];$[(`qt~e)|(`bl;0)~blc(a);r;evl[e;b]]})
- (,"|";    2;{(a;b):y;(e;a):r:evl[x;a];$[(`qt~e)|(`bl;1)~blc(a);r;evl[e;b]]})
- (,";";    2;{(e;(a;b)):$[`qt~*r:eva[x;y];:r;r];(e;b)})
- (,"=";    2;{(a;b):y;(e;b):evl[x;b];$[`qt~e;:(e;b);];(@[e;a[1];:;b];b)})
- ("WHILE"; 2;{r:1_{1~*x}{$[`qt~*y[1];:0,1_y;];(p;b):x;e:*r:evl[y[1];p];$[`qt~e;:0,r;(`bl;0)~blc(r[1]);(0;e;y[2]);1,evl[e;b]]}[y]/(1;x;());$[`qt~*r;:r;(*r;(`nl;()))]})
- ("IF";    3;{(p;tn;el):y;e:*r:evl[x;p];$[`qt~e;:r;(`bl;1)~blc(r[1]);evl[e;tn];evl[e;el]]})
- ("GET";   3;{(e;a):$[`qt~*r:eva[x;y];:r;r];(e;(`st;@[*|stc@*a;(*sl)+!*|sl:*|+nmc'1_a]))})
- ("SUBSTITUTE";4;{(e;a):$[`qt~*r:eva[x;y];:r;r];(s;n):(*|+)'(stc';nmc')@'a(0 3;1 2);(e;(`st;?[s[0];+\n;s[1]]))}))
+ (,":";    1;(::))
+ ("EVAL";  1;{})
+ ("BLOCK"; 1;{})
+ ("CALL";  1;{})
+ (,"`";    1;{[e;a];(t;s):*a;(e;(`st;"\n"/."\\",s))})
+ ("QUIT";  1;{})
+ (,"!";    1;{[e;a];(t;b):blc(*a);(e;(`bl;~b))})
+ ("LENGTH";1;{[e;a];(t;s):*a;(e;#s)})
+ ("DUMP";  1;{[e;a];(t;v):r:*a;(`st;,/(((`nl`bl`st`nm!("Null";"Boolean";"String";"Number")))t;,"(";*|stc@r;,")"))})
+ ("OUTPUT";1;{[e;a];(t;s):stc(*a);`1:$["\\"=*|s;-1_s;s,"\n"];(e;(`nl;()))})
+ ("ASCII"; 1;{[e;a];(t;b):*a;(e;(`st`nm@t~`st;$[`st~t;0+*b;`nm~t;`c$b;`err@"ASCII"]))})
+ (,"~";    1;{[e;a];(e;(`nm;-:*|nmc@*a))})
+ (,"+";    2;{(e;(a;b)):(x;y);v:*|+(a;(cnv@*a)b);(e;(*a;((+/;,/)`st~*a)v))})
+ (,"-";    2;{(e;(a;b)):(x;y);v:*|+(a;(cnv`nm)b);(e;(`nm;-/v))})
+ (,"*";    2;{(e;(a;b)):(x;y);v:*|+(a;(cnv`nm)b);(e;(*a;@[(*/;{(y*#x)#x}.);`st~*a]v))})
+ (,"/";    2;{(e;(a;b)):(x;y);v:*|+(a;(cnv`nm)b);(s;r):sgn@%/v;(e;(`nm;s*_r))})
+ (,"%";    2;{(e;(a;b)):(x;y);v:*|+(a;(cnv`nm)b);(x;y):v;(s;x):sgn@x;(e;(`nm;s*(y!x)))})
+ (,"^";    2;{(e;(a;b)):(x;y);v:*|+(a;(cnv`nm)b);(e;(`nm;*/#/|:v))})
+ (,"<";    2;{(e;(a;b)):(x;y);v:*|+(a;(cnv@*a)b);(e;(`bl;@[(</;</;*>:);`nm`bl`st?*a]v))})
+ (,">";    2;{(e;(a;b)):(x;y);v:*|+(a;(cnv@*a)b);(e;(`bl;@[(>/;>/;*>:);`nm`bl`st?*a]v))})
+ (,"?";    2;{[e;a];(e;(`bl;~/a))})
+ (,"&";    2;{})
+ (,"|";    2;{})
+ (,";";    2;{})
+ (,"=";    2;{})
+ ("WHILE"; 2;{})
+ ("IF";    3;{})
+ ("GET";   3;{})
+ ("SUBSTITUTE";4;{}))
 
 art:!/2#FNS
 FN:!/FNS[0 2]
 prs:{(tk;tr):{tk:*x;r:1_x;$[~#tk;`err@"incomplete";`fn=_*e:*tk;[rr:(0^art@*e:*|*tk)o/,1_tk;(,*rr),r,,(`fn;e;1_rr)];(,1_tk),r,,e]}@,dsp@x;
      $[#tk;`err@"incomplete parse:",`k@tk;];tr}
-evl:{$[`qt~x;:(x;y);|/`st`nm`bl`nl`bk=t:*y;:(x;y);`vr~t;:$[^(!x)?y@1;`err@`k@^y@1;(x;x[y@1])]];evf[x;y]}
-evf:{(t;n;a):y;$[^(!FN)?*n;:`err@"no func:",n;];FN[*n][x;a]}
-eva:{r:{{(e;v):evl[*x;y];$[`qt~e;:(e;v);];e,1_x,,v}/[,x;y]}[x;y];(*r;1_r:$[`qt~*r;:r;r])}
-eva:evl:{(x;y)}
 
 nil:{{[v;k;e;as;cs](e;(,v),as;k,cs)}[x;y;;]}
 
@@ -109,5 +105,3 @@ CTRL:!/+((";";{seq@cmp'x})
 
 cmp:{$[|/`st`nm=t:*x;:nil[x];`vr~t;:get[*|x];^(!FN)?*n:x[1];`err@n;~^(!CTRL)?*n;:CTRL[*n][x[2]];cll[cl0[#x[2];FN[*n]];o'x[2]]]}
 run:{{#*|x}{(e;as;cs):x;dbg["run:";as];(*cs)[e;as;1_cs]}/(x;();,y[z])}
-
-/2(*|:)/$[#x;evl[()!()] prs@1:*x;]
