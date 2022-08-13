@@ -89,7 +89,6 @@ wh:{[pr;bd;k;e;as;cs]{[pr;bd;k;e;as;cs]r:seq(pr;ifb[seq(bd;o[pr;bd]);nil[(`nl;()
 
 and:{[a;b]seq(a;stx[(::);b])}
 or:{[a;b]seq(a;stx[(~:);b])}
-/or:{{[a;b;k;e;as;cs]seq(a;stx[~:;b])[k][e;as;cs]}[x;y]}
 
 cal:{[k;e;as;cs](e;1_as;(*as)[k],cs)}
 evl:{[k;e;as;cs]c:stc(*as);(e;1_as;((cmp@prs[*|c])[k]),cs)}
