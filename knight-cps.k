@@ -26,10 +26,10 @@ dsp:{{x,$[|/rm=y;();`fn=t:CL@*z;`fn,/:z;`st=t;,`st,,1_z;`nm=t;,`nm,10/z-"0";,(t;
 /----------- parser -----------/
 stc:{(t;v):x;$[`st~t;x;`nl~t;(`st;"null");`bl~t;(`st;("false";"true")v);(`st;$[~v;"0";(("";"-")0>*s),`c$"0"+10\*|s:sgn@v])]}
 blc:{(t;v):x;$[`st~t;(`bl;~~#v);`nl~t;(`bl;0);`bl~t;x;(`bl;~0=v)]}
-s2n:{r*~^r:(-1+2*~"-"=*x)*`I$#/|(,t),+/&\~"0:"'t:(|/"+-"=*x)_x:(&\~^" \n\r\t"?)_x}
+s2n:{r*~^r:(1 -1"-"=*x)*`I$#/|(,t),+/&\~"0:"'t:(|/"+-"=*x)_x:(&\~^" \n\r\t"?)_x}
 nmc:{(t;v):x;$[`st~t;(`nm;s2n@v);`nl~t;(`nm;0);`bl~t;(`nm;v);x]}
 cnv:`st`bl`nm!(stc;blc;nmc)
-sgn:{(s[1];*/s:1(-1+2*~0>)\x)}
+sgn:{(s[1];*/s:1(1 -1@0>)\x)}
 dbg:{`0:x,`k@y}
 MXRND:32767
 `prng@0
