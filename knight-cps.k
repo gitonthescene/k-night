@@ -36,9 +36,9 @@ MXRND:32767
 FNS:*''+(("TRUE";0;{y;(x;(`bl;1))})
  ("FALSE"; 0;{y;(x;(`bl;0))})
  ("NULL";  0;{y;(x;(`nl;()))})
- ("PROMPT";0;{y;(x;(`st;1:1))})
+ ("PROMPT";0;{y;p:_/|1((-+/&\0 1 ="\n\r"?)@|-2#)\1:1;(x;(`st;p))})
  ("RANDOM";0;{y;(x;(`nm;*1?MXRND))})
- (,":";    1;(::))
+ (,":";    1;{(x;*y)})
  ("EVAL";  1;{})
  ("BLOCK"; 1;{})
  ("CALL";  1;{})
@@ -50,14 +50,14 @@ FNS:*''+(("TRUE";0;{y;(x;(`bl;1))})
  ("OUTPUT";1;{[e;a];(t;s):stc(*a);`1:$["\\"=*|s;-1_s;s,"\n"];(e;(`nl;()))})
  ("ASCII"; 1;{[e;a];(t;b):*a;(e;(`st`nm@t~`st;$[`st~t;0+*b;`nm~t;`c$b;`err@"ASCII"]))})
  (,"~";    1;{[e;a];(e;(`nm;-:*|nmc@*a))})
- (,"+";    2;{(e;(a;b)):(x;y);v:*|+(a;(cnv@*a)b);(e;(*a;((+/;,/)`st~*a)v))})
- (,"-";    2;{(e;(a;b)):(x;y);v:*|+(a;(cnv`nm)b);(e;(`nm;-/v))})
- (,"*";    2;{(e;(a;b)):(x;y);v:*|+(a;(cnv`nm)b);(e;(*a;@[(*/;{(y*#x)#x}.);`st~*a]v))})
- (,"/";    2;{(e;(a;b)):(x;y);v:*|+(a;(cnv`nm)b);(s;r):sgn@%/v;(e;(`nm;s*_r))})
- (,"%";    2;{(e;(a;b)):(x;y);v:*|+(a;(cnv`nm)b);(x;y):v;(s;x):sgn@x;(e;(`nm;s*(y!x)))})
- (,"^";    2;{(e;(a;b)):(x;y);v:*|+(a;(cnv`nm)b);(e;(`nm;*/#/|:v))})
- (,"<";    2;{(e;(a;b)):(x;y);v:*|+(a;(cnv@*a)b);(e;(`bl;@[(</;</;*>:);`nm`bl`st?*a]v))})
- (,">";    2;{(e;(a;b)):(x;y);v:*|+(a;(cnv@*a)b);(e;(`bl;@[(>/;>/;*>:);`nm`bl`st?*a]v))})
+ (,"+";    2;{(a;b):y;v:*|+(a;(cnv@*a)b);(x;(*a;((+/;,/)`st~*a)@v))})
+ (,"-";    2;{(a;b):y;v:*|+(a;(cnv`nm)b);(x;(`nm;-/v))})
+ (,"*";    2;{(a;b):y;v:*|+(a;(cnv`nm)b);(x;(*a;@[(*/;{(y*#x)#x}.);`st~*a]v))})
+ (,"/";    2;{(a;b):y;v:*|+(a;(cnv`nm)b);(s;r):sgn@%/v;(x;(`nm;s*_r))})
+ (,"%";    2;{e:x;(a;b):y;v:*|+(a;(cnv`nm)b);(x;y):v;(s;x):sgn@x;(e;(`nm;s*(y!x)))})
+ (,"^";    2;{(a;b):y;v:*|+(a;(cnv`nm)b);(x;(`nm;*/#/|:v))})
+ (,"<";    2;{(a;b):y;v:*|+(a;(cnv@*a)b);(x;(`bl;@[(</;</;*>:);`nm`bl`st?*a]v))})
+ (,">";    2;{(a;b):y;v:*|+(a;(cnv@*a)b);(x;(`bl;@[(>/;>/;*>:);`nm`bl`st?*a]v))})
  (,"?";    2;{[e;a];(e;(`bl;~/a))})
  (,"&";    2;{})
  (,"|";    2;{})
@@ -65,8 +65,8 @@ FNS:*''+(("TRUE";0;{y;(x;(`bl;1))})
  (,"=";    2;{})
  ("WHILE"; 2;{})
  ("IF";    3;{})
- ("GET";   3;{})
- ("SUBSTITUTE";4;{}))
+ ("GET";   3;{[e;a](e;(`st;@[*|stc@*a;(*sl)+!*|sl:*|+nmc'1_a]))})
+ ("SUBSTITUTE";4;{[e;a](s;n):(*|+)'(stc';nmc')@'a(0 3;1 2);(e;(`st;?[s[0];+\n;s[1]]))}))
 
 art:!/2#FNS
 FN:!/FNS[0 2]
@@ -74,12 +74,13 @@ prs:{(tk;tr):{tk:*x;r:1_x;$[~#tk;`err@"incomplete";`fn=_*e:*tk;[rr:(0^art@*e:*|*
      $[#tk;`err@"incomplete parse:",`k@tk;];tr}
 
 nil:{{[v;k;e;as;cs](e;(,v),as;k,cs)}[x;y;;]}
+chp:{[k;e;as;cs](e;1_as;k,cs)}
 
-cl0:{{[n;a;k;e;as;cs];(e;r):a[e;|n#as];(e;(,r),n_as;k,cs)}[x;y;z;;]}
+cl0:{{[n;a;k;e;as;cs];(e;r):a[e;|n#as];;(e;(,r),n_as;k,cs)}[x;y;z;;]}
 seq:{{{y[x]}/[(*|x)[y];|-1_x]}[x;y]}
 cll:{seq[y,x]}
 
-set:{{[n;k;e;as;cs](@[e;n;:;as];1_as;k,cs)}[x;y]}
+set:{{[n;k;e;as;cs](@[e;n;:;,*as];as;k,cs)}[x;y]}
 get:{{[n;k;e;as;cs](e;(e[n]),as;k,cs)}[x;y]}
 
 ifb:{[th;el;k;e;as;cs](e;1_as;$[(`bl;1)~blc(*as);th[k];el[k]],cs)}
@@ -87,21 +88,25 @@ stx:{[t;th;k;e;as;cs]$[t@(`bl;1)~blc(*as);(e;1_as;th[k],cs);(e;as;k,cs)]}
 wh:{[pr;bd;k;e;as;cs]{[pr;bd;k;e;as;cs]r:seq(pr;ifb[seq(bd;o[pr;bd]);nil[(`nl;())]]);r[k][e;as;cs]}[pr;bd;k;e;as;cs]}
 
 and:{[a;b]seq(a;stx[(::);b])}
-or:{[a;b]seq(a;stx[~:;b])}
+or:{[a;b]seq(a;stx[(~:);b])}
+/or:{{[a;b;k;e;as;cs]seq(a;stx[~:;b])[k][e;as;cs]}[x;y]}
 
 cal:{[k;e;as;cs](e;1_as;(*as)[k],cs)}
-qt:{[k;e;as;cs](e;,(`qt;*as);())}
+evl:{[k;e;as;cs]c:stc(*as);(e;1_as;((cmp@prs[*|c])[k]),cs)}
+qt:{[k;e;as;cs](e;,(`qt;*|*as);())}
 
-CTRL:!/+((";";{seq@cmp'x})
-  ("I";{(p;t;e):seq@cmp'x;seq(p;ifb[t;e])})
+CTRL:!/+((";";{(a;b):cmp'x;seq(a;chp;b)})
+  ("I";{(p;t;e):cmp'x;seq(p;ifb[t;e])})
   ("W";{(p;b):cmp'x;wh[p;b]})
-  ("=";{(n;v):x;seq(cmp[v];set[*|n])})
+  ("=";{(n;v):x;seq(cmp[v];set[,*|n])})
   ("&";{and.(cmp'x)})
   ("|";{or.(cmp'x)})
   ("B";{nil@cmp[*x]})
   ("C";{seq(cmp[*x];cal)})
-  ("E";{dbg["E";*|*x];cmp@prs@*|*x})
+  ("E";{seq(cmp[*x];evl)})
   ("Q";{seq(cmp[*x];qt)}))
 
-cmp:{$[|/`st`nm=t:*x;:nil[x];`vr~t;:get[*|x];^(!FN)?*n:x[1];`err@n;~^(!CTRL)?*n;:CTRL[*n][x[2]];cll[cl0[#x[2];FN[*n]];o'x[2]]]}
-run:{{#*|x}{(e;as;cs):x;dbg["run:";as];(*cs)[e;as;1_cs]}/(x;();,y[z])}
+cmp:{$[|/`st`nm=t:*x;:nil[x];`vr~t;:get[,*|x];^(!FN)?*n:x[1];`err@n;~^(!CTRL)?*n;:CTRL[*n][x[2]];cll[cl0[#x[2];FN[*n]];o'x[2]]]}
+run:{{#*|x}{(e;as;cs):x;(*cs)[e;as;1_cs]}/(x;();,y[z])}
+
+**1_$[#x;run[()!();cmp@prs@1:*x;{z;*y}];]
