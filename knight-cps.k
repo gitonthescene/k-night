@@ -74,7 +74,9 @@ prs:{(tk;tr):{tk:*x;r:1_x;$[~#tk;`err@"incomplete";`fn=_*e:*tk;[rr:(0^art@*e:*|*
      $[#tk;`err@"incomplete parse:",`k@tk;];tr}
 
 nil:{{[v;k;e;as;cs](e;(,v),as;k,cs)}[x;y;;]}
+dup:{[k;e;as;cs](e;(,*as),as;k,cs)}
 chp:{[k;e;as;cs](e;1_as;k,cs)}
+nul:{[k;e;as;cs](e;as;k,cs)}
 
 cl0:{{[n;a;k;e;as;cs];(e;r):a[e;|n#as];;(e;(,r),n_as;k,cs)}[x;y;z;;]}
 seq:{{{y[x]}/[(*|x)[y];|-1_x]}[x;y]}
@@ -83,12 +85,11 @@ cll:{seq[y,x]}
 set:{{[n;k;e;as;cs](@[e;n;:;,*as];as;k,cs)}[x;y]}
 get:{{[n;k;e;as;cs](e;(e[n]),as;k,cs)}[x;y]}
 
-ifb:{[th;el;k;e;as;cs](e;1_as;$[(`bl;1)~blc(*as);th[k];el[k]],cs)}
-stx:{[t;th;k;e;as;cs]$[t@(`bl;1)~blc(*as);(e;1_as;th[k],cs);(e;as;k,cs)]}
+ifb:{[th;el;k;e;as;cs](e;1_as;$[(`bl;1)~blc(*as);th;el][k],cs)}
 wh:{[pr;bd;k;e;as;cs]{[pr;bd;k;e;as;cs]r:seq(pr;ifb[seq(bd;o[pr;bd]);nil[(`nl;())]]);r[k][e;as;cs]}[pr;bd;k;e;as;cs]}
 
-and:{[a;b]seq(a;stx[(::);b])}
-or:{[a;b]seq(a;stx[(~:);b])}
+and:{[a;b]seq(a;dup;ifb[seq(chp;b);nul])}
+or:{[a;b]seq(a;dup;ifb[nul;seq(chp;b)])}
 
 cal:{[k;e;as;cs](e;1_as;(*as)[k],cs)}
 evl:{[k;e;as;cs]c:stc(*as);(e;1_as;((cmp@prs[*|c])[k]),cs)}
@@ -108,4 +109,4 @@ CTRL:!/+((";";{(a;b):cmp'x;seq(a;chp;b)})
 cmp:{$[|/`st`nm=t:*x;:nil[x];`vr~t;:get[,*|x];^(!FN)?*n:x[1];`err@n;~^(!CTRL)?*n;:CTRL[*n][x[2]];cll[cl0[#x[2];FN[*n]];o'x[2]]]}
 run:{{#*|x}{(e;as;cs):x;(*cs)[e;as;1_cs]}/(x;();,y[z])}
 
-**1_$[#x;run[()!();cmp@prs@1:*x;{z;*y}];]
+$[#x;**1_run[()!();cmp@prs@1:*x;{z;*y}];]
