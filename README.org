@@ -3,3 +3,67 @@
   roll-your-own state machine for the lexer.  Not much more to say for now.
 
   Oh!  I think this version should be pronounced "KUH-night", but that's just me.
+
+** Parse tree version
+   There are now two versions of this implementation.  Both start by creating a parse tree of the
+   code.  The initial version ~knight.k~ evaluates this parse tree directly, passing around subtrees
+   for arguments to be recursively parsed.  Arguments are evaluated in order with the BLOCK function
+   simply passing back the unparsed argument tree to be either stored as a variable or fetched and
+   evaluated by the CALL function.
+
+   This is all pretty straightforward but has a shortcoming when it comes to the QUIT function.  The
+   trouble is that QUIT should immediately quit whatever is being evaluated recursively and return
+   back to the top level.  But since we're using the K stack to recursively call evaluate we need to
+   wind the QUIT back up through that stack.  This isn't terribly hard, but doesn't look to great
+   either.
+
+** CPS version
+   This version uses [[https://en.wikipedia.org/wiki/Continuation-passing_style][Continuation-passing style]] to wrest control over the program flow.  Without
+   going into too much detail the idea is to break down the entire program into a precise chain of
+   events where the next step is passed to the previous one as a function to be called with the
+   previous result.  Since there is an explicit function call for what to do next, we can choose not
+   to call it in QUIT (i.e. refusing to take the next step) and instead call a function which
+   terminates the chain of events.
+
+   One wrinkle with Continuation-passing style (CPS) is that a step often needs information from
+   more than just the previous step.  For instance a function may need to calculate the value of two
+   arguments before being evaluated.  Each of those is a separate step in the chain of events with
+   only one of those being the step before the function call.  In most of the examples you'll see on
+   the interwebs this is handled by using [[https://en.wikipedia.org/wiki/Closure_(computer_programming)][closures]] which unfortunately aren't avaiable in K.
+
+   To handle this, each step puts its data on a data stack and popped when the data is used.
+   Luckily, in Knight data is _always_ used because the code is simply a one big function.  Adding
+   more data than is consumed is a parse error.
+
+   Another wrinkle here is that each step calling the next step means again using the K stack.  But
+   the whole point of using CPS is that the last thing a step does is call the next step.  I.e. all
+   these calls are in tail position.  This means that when we're ready to call the next step we're
+   completely done with the current stack frame.  Tail call optimization (TCO) would come in handy
+   here, but K lacks that as well.  To overcome this we use a [[https://en.wikipedia.org/wiki/Trampoline_(computing)#High-level_programming][tramapoline]].  What this basically
+   means is each step doesn't directly call the next step.  Instead we _return_ the next step by
+   placing it on a call stack and let an _evaluator_ (a.k.a. trampoline) loop through and repeatedly
+   call what's ever on the call stack.  I.e. we explicitly pop the K stack before making the next
+   call.
+
+   That's basically the whole idea behind this version.  And in fact it's a few bytes shorter than
+   the parse tree version because we avoid having to thread through the stack rewind for QUIT.
+
+   I could probably add a few more words about this version (I'm sort of proud of it), but I'll
+   leave that for another day.
+
+** History?
+   Not really a history but a telling of where I got the ideas.  I had used trampolines before to
+   implement deep recursion in Python many years ago and so it might have been rattling around in my
+   brain when I did this, but I didn't have any direct recollection.  Similarly, this implementation
+   shares similarities with Stephen Apter's [[http://nsl.com/papers/continuations.htm][tcK implementation]] which I was aware of but hadn't
+   carefully studied.  I still haven't actually, but I plan to.
+
+   I don't know which article I read years ago when first being introduced to trampolines, but [[https://eli.thegreenplace.net/2017/on-recursion-continuations-and-trampolines/][this
+   article]] is well written I think.
+
+** What's next?
+   Well, maybe nothing but it's fun to think about.  Having full control over the flow of execution
+   using CPS means there are a few things you could try.
+   - Add CONTINUE and BREAK statements to the language
+   - Add TRY/CATCH blocks with a RAISE command
+   - Implement a debugger
