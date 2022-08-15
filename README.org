@@ -14,7 +14,7 @@
    This is all pretty straightforward but has a shortcoming when it comes to the QUIT function.  The
    trouble is that QUIT should immediately quit whatever is being evaluated recursively and return
    back to the top level.  But since we're using the K stack to recursively call evaluate we need to
-   wind the QUIT back up through that stack.  This isn't terribly hard, but doesn't look to great
+   wind the QUIT back up through that stack.  This isn't terribly hard, but doesn't look too great
    either.
 
 ** CPS version
@@ -38,8 +38,8 @@
    Another wrinkle here is that each step calling the next step means again using the K stack.  But
    the whole point of using CPS is that the last thing a step does is call the next step.  I.e. all
    these calls are in tail position.  This means that when we're ready to call the next step we're
-   completely done with the current stack frame.  Tail call optimization (TCO) would come in handy
-   here, but K lacks that as well.  To overcome this we use a [[https://en.wikipedia.org/wiki/Trampoline_(computing)#High-level_programming][tramapoline]].  What this basically
+   completely done with the current stack frame.  [[https://en.wikipedia.org/wiki/Tail_call][Tail call optimization]] (TCO) would come in handy
+   here, but K lacks that as well.  To overcome this we use a [[https://en.wikipedia.org/wiki/Trampoline_(computing)#High-level_programming][trampoline]].  What this basically
    means is each step doesn't directly call the next step.  Instead we _return_ the next step by
    placing it on a call stack and let an _evaluator_ (a.k.a. trampoline) loop through and repeatedly
    call what's ever on the call stack.  I.e. we explicitly pop the K stack before making the next
