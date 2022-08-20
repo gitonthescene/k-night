@@ -73,27 +73,27 @@ FN:!/FNS[0 2]
 prs:{(tk;tr):{tk:*x;r:1_x;$[~#tk;`err@"incomplete";`fn=_*e:*tk;[rr:(0^art@*e:*|*tk)o/,1_tk;(,*rr),r,,(`fn;e;1_rr)];(,1_tk),r,,e]}@,dsp@x;
      $[#tk;`err@"incomplete parse:",`k@tk;];tr}
 
-nil:{{[v;k;e;as;cs](e;(,v),as;k,cs)}[x;y;;]}
-dup:{[k;e;as;cs](e;(,*as),as;k,cs)}
-chp:{[k;e;as;cs](e;1_as;k,cs)}
-nul:{[k;e;as;cs](e;as;k,cs)}
+nil:{{[v;k;e;as](e;as,,v;k)}[x;y;;]}
+dup:{[k;e;as](e;as,,*as;k)}
+chp:{[k;e;as](e;-1_as;k)}
+nul:{[k;e;as](e;as;k)}
 
-cl0:{{[n;a;k;e;as;cs];(e;r):a[e;|n#as];;(e;(,r),n_as;k,cs)}[x;y;z;;]}
+cl0:{{[n;a;k;e;as];(e;r):a[e;(-n)#as];;(e;((-n)_as),,r;k)}[x;y;z;;]}
 seq:{{{y[x]}/[(*|x)[y];|-1_x]}[x;y]}
 cll:{seq[y,x]}
 
-set:{{[n;k;e;as;cs](@[e;n;:;,*as];as;k,cs)}[x;y]}
-get:{{[n;k;e;as;cs](e;(e[n]),as;k,cs)}[x;y]}
+set:{{[n;k;e;as](@[e;n;:;,*|as];as;k)}[x;y]}
+get:{{[n;k;e;as](e;as,e[n];k)}[x;y]}
 
-ifb:{[th;el;k;e;as;cs](e;1_as;$[(`bl;1)~blc(*as);th;el][k],cs)}
-wh:{[pr;bd;k;e;as;cs]{[pr;bd;k;e;as;cs]r:seq(pr;ifb[seq(bd;chp;o[pr;bd]);nil[(`nl;())]]);r[k][e;as;cs]}[pr;bd;k;e;as;cs]}
+ifb:{[th;el;k;e;as](e;-1_as;$[(`bl;1)~blc(*|as);th;el][k])}
+wh:{[pr;bd;k;e;as]{[pr;bd;k;e;as]r:seq(pr;ifb[seq(bd;chp;o[pr;bd]);nil[(`nl;())]]);r[k][e;as]}[pr;bd;k;e;as]}
 
 and:{[a;b]seq(a;dup;ifb[seq(chp;b);nul])}
 or:{[a;b]seq(a;dup;ifb[nul;seq(chp;b)])}
 
-cal:{[k;e;as;cs](e;1_as;(*as)[k],cs)}
-evl:{[k;e;as;cs]c:stc(*as);(e;1_as;((cmp@prs[*|c])[k]),cs)}
-qt:{[k;e;as;cs](e;,(`qt;*|*as);())}
+cal:{[k;e;as](e;-1_as;(*|as)[k])}
+evl:{[k;e;as]c:stc(*|as);(e;-1_as;(cmp@prs[*|c])[k])}
+qt:{[k;e;as](e;,(`qt;*|*|as);())}
 
 CTRL:!/+((";";{(a;b):cmp'x;seq(a;chp;b)})
   ("I";{(p;t;e):cmp'x;seq(p;ifb[t;e])})
@@ -107,6 +107,6 @@ CTRL:!/+((";";{(a;b):cmp'x;seq(a;chp;b)})
   ("Q";{seq(cmp[*x];qt)}))
 
 cmp:{$[|/`st`nm=t:*x;:nil[x];`vr~t;:get[,*|x];^(!FN)?*n:x[1];`err@n;~^(!CTRL)?*n;:CTRL[*n][x[2]];cll[cl0[#x[2];FN[*n]];o'x[2]]]}
-run:{{#*|x}{(e;as;cs):x;(*cs)[e;as;1_cs]}/(x;();,y[z])}
+run:{{#*|x}{(e;as;c):x;c[e;as]}/(x;();y[z])}
 
-$[#x;**1_run[()!();cmp@prs@1:*x;{z;*y}];]
+$[#x;**1_run[()!();cmp@prs@1:*x;{*y}];]
