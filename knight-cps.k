@@ -86,7 +86,7 @@ set:{{[n;k;e;as](@[e;n;:;,*|as];as;k)}[x;y]}
 get:{{[n;k;e;as](e;as,e[n];k)}[x;y]}
 
 ifb:{[th;el;k;e;as](e;-1_as;$[(`bl;1)~blc(*|as);th;el][k])}
-wh:{[pr;bd;k;e;as]{[pr;bd;k;e;as]r:seq(pr;ifb[seq(bd;chp;o[pr;bd]);nil[(`nl;())]]);r[k][e;as]}[pr;bd;k;e;as]}
+wh:{[pr;bd;k]r:seq(pr;ifb[seq(bd;chp;o[pr;bd]);nil[(`nl;())]]);r[k]}
 
 and:{[a;b]seq(a;dup;ifb[seq(chp;b);nul])}
 or:{[a;b]seq(a;dup;ifb[nul;seq(chp;b)])}
