@@ -4,7 +4,7 @@ dg:`c$"0"+!10
 fn:":`!~+-*/%^<>?&|;="
 lt:"$,.@\\"
 cl:@[&"a"+256;c;:;1+!#c:("'";"\"";"\n";"#";" \t\r{}[]()";"_";fn;up;_up;dg;lt)]
-CL:`XX`st`st`sp`cm`sp`vr`fn`FN`vr`nm@cl
+CL:`XX`st`st`sp`cm`sp`vr`FN`fn`vr`nm@cl
 tr:(*'tb)?/:1_'tb:1_'"\n"\1_"
  uuuuuuuuuuuuu
  ssSssssssssss
@@ -21,7 +21,7 @@ tr:(*'tb)?/:1_'tb:1_'"\n"\1_"
 
 rm:(*'tb)?"SDcCw"
 tok:{(*:';::)@'(&~=':r)_/:(r:2{tr[x;y]}\cl@x;x)}
-dsp:{{x,$[|/rm=y;();`fn=t:CL@*z;`fn,/:z;`st=t;,`st,,1_z;`nm=t;,`nm,10/z-"0";,(t;z)]}/[()].(tok x)}
+dsp:{{x,$[|/rm=y;();`FN=t:CL@*z;`fn,/:z;`st=t;,`st,,1_z;`nm=t;,`nm,10/z-"0";,(t;z)]}/[()].(tok x)}
 
 /----------- parser -----------/
 stc:{(t;v):x;$[`st~t;x;`nl~t;(`st;"null");`bl~t;(`st;("false";"true")v);(`st;$[~v;"0";((0>*s)#"-"),`c$"0"+10\*|s:sgn@v])]}
@@ -70,9 +70,8 @@ FNS:*''+(("TRUE";0;{y;(x;(`bl;1))})
 
 art:!/2#FNS
 FN:!/FNS[0 2]
-prs:{(tk;tr):{tk:*x;r:1_x;$[~#tk;`err@"incomplete";`fn=_*e:*tk;[rr:(0^art@*e:*|*tk)o/,1_tk;(,*rr),r,,(`fn;e;1_rr)];(,1_tk),r,,e]}@,dsp@x;
-     $[#tk;`err@"incomplete parse:",`k@tk;];tr}
 
+prs:{r:{$[~`fn~*y;(,y),x;(#x)<a:art@**|y;`err@"not enough args:",*|y;(,(y,,a#x)),a_x]}/[();|dsp@x];$[1<#r;`err@"spurious code";*r]}
 nil:{{[v;k;e;as](e;as,,v;k)}[x;y;;]}
 dup:{[k;e;as](e;as,,*as;k)}
 chp:{[k;e;as](e;-1_as;k)}
