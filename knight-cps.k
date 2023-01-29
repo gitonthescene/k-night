@@ -32,6 +32,7 @@ lsc:{(t;v):x;$[`st~t;(`ls;`st,/:,','v);`nl~t;(`ls;());`bl~t;(`ls;(();,(`bl;1))v)
 cnv:`st`bl`nm`ls!(stc;blc;nmc;lsc)
 sgn:{(s[1];*/s:1(1 -1@0>)\x)}
 jn:{(`st;(*|stc[y])/*|+stc'x@1)}
+dmpl:{ x;$[`ls~t:*x;(`st;"[",(", "/*|+o'x@1),"]");`st~t;(`st;(1=#s)_`k@s:*|stc@x);stc@x]}
 dbg:{`0:x,`k@y}
 MXRND:32767
 `prng@0
@@ -49,13 +50,14 @@ FNS:*''+(("TRUE";0;{y;(x;(`bl;1))})
  ("QUIT";  1;{})
  (,"!";    1;{[e;a];(t;b):blc(*a);(e;(`bl;~b))})
  ("LENGTH";1;{[e;a];(t;s):*a;(e;#s)})
+ ("DUMP";  1;{[e;a];`0:*|r:dmpl@*a;(e;r)})
  ("DUMP";  1;{[e;a];(t;v):r:*a;(`st;,/(((`nl`bl`st`nm!("Null";"Boolean";"String";"Number")))t;,"(";*|stc@r;,")"))})
  ("OUTPUT";1;{[e;a];(t;s):stc(*a);`1:$["\\"=*|s;-1_s;s,"\n"];(e;(`nl;()))})
  ("ASCII"; 1;{[e;a];(t;b):*a;(e;(`st`nm@t~`st;$[`st~t;0+*b;`nm~t;`c$b;`err@"ASCII"]))})
  (,"~";    1;{[e;a];(e;(`nm;-:*|nmc@*a))})
  (,"[";    1;{[e;a];(e;**|lsc@*a)})
  (,"]";    1;{[e;a];(e;(`ls;1_*|lsc@*a))})
- (,",";    1;{[e;a];(e;(`ls;*a))})
+ (,",";    1;{[e;a];(e;(`ls;,*a))})
  (,"+";    2;{(a;b):y;v:*|+(a;(cnv@*a)b);(x;(*a;((,/;+/)`nm~*a)@v))})
  (,"-";    2;{(a;b):y;v:*|+(a;(cnv`nm)b);(x;(`nm;-/v))})
  (,"*";    2;{(a;b):y;v:*|+(a;(cnv`nm)b);(x;(*a;@[(((::;,/)`st~*a){y#,x}.;*/);`nm~*a]v))})
