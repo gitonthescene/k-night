@@ -73,7 +73,6 @@ FNS:*''+(("TRUE";0;{y;(x;(`bl;1))})
  ("WHILE"; 2;{})
  ("IF";    3;{})
  ("GET";   3;{[e;a](e;(t;@[*|((stc@;::)`ls~t:*r)r:*a;(*sl)+!*|sl:*|+nmc'1_a]))})
- ("GET";   3;{[e;a](e;(`st;@[*|stc@*a;(*sl)+!*|sl:*|+nmc'1_a]))})
  ("SUBSTITUTE";4;{[e;a](s;n):(*|+)'(((::;`ls,,,stc@)@';stc')`ls`st?**a;nmc')@'a(0 3;1 2);(e;(**a;?[s[0];+\n;s[1]]))}))
 
 art:!/2#FNS
