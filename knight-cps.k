@@ -116,4 +116,4 @@ cmp:{$[|/`st`nm=t:*x;:nil[x];`vr~t;:get[,*|x];^(!FN)?*n:x[1];`err@n;~^(!CTRL)?*n
 run0:{{#*|x}{(e;as;c):x;c[e;as]}/(x;();y[z])}
 run:{**1_run0[()!();cmp@prs@x;{(x;y;())}]}
 
-$["-e"~*x;run@x[1];"--"~*x;run@1:1;#x;run@1:*x;];
+$["-e"~*x;run@x[1];"--"~*x;{1}{run@1:1}/();#x;run@1:*x;];
