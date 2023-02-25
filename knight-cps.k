@@ -24,15 +24,15 @@ tok:{(*:';::)@'(&~=':r)_/:(r:2{tr[x;y]}\cl@x;x)}
 dsp:{{x,$[|/rm=y;();`FN=t:CL@*z;`fn,/:z;`st=t;,`st,,1_z;`nm=t;,`nm,10/z-"0";,(t;z)]}/[()].(tok x)}
 
 /----------- parser -----------/
-stc:{(t;v):x;$[`ls~t;(`st;"\n"/*|+stc'v);`nl~t;(`st;"null");`bl~t;(`st;("false";"true")v);`nm~t;(`st;$[~v;"0";((0>*s)#"-"),`c$"0"+10\*|s:sgn@v]);x]}
+stc:{(t;v):x;$[`ls~t;(`st;"\n"/*|+stc'v);`nl~t;(`st;"");`bl~t;(`st;("false";"true")v);`nm~t;(`st;$[~v;"0";((0>*s)#"-"),`c$"0"+10\*|s:sgn@v]);x]}
 blc:{(t;v):x;$[`st~t;(`bl;~~#v);`nl~t;(`bl;0);`nm~t;(`bl;~0=v);`ls~t;(`bl;1&#v);x]}
 s2n:{r*~^r:(1 -1"-"=*x)*`I$#/|(,t),+/&\~"0:"'t:(|/"+-"=*x)_x:(&\~^" \n\r\t"?)_x}
 nmc:{(t;v):x;$[`st~t;(`nm;s2n@v);`nl~t;(`nm;0);`bl~t;(`nm;v);`ls~t;(`nm;#v);x]}
-lsc:{(t;v):x;$[`st~t;(`ls;`st,/:,','v);`nl~t;(`ls;());`bl~t;(`ls;(();,(`bl;1))v);`nm~t;(`ls;`nm,/:s*10\v*s:1 -1v<0);x]}
+lsc:{(t;v):x;$[`st~t;(`ls;`st,/:,','v);`nl~t;(`ls;());`bl~t;(`ls;(();,(`bl;1))v);`nm~t;(`ls;`nm,/:s*((~v)#v),10\v*s:1 -1v<0);x]}
 cnv:`st`bl`nm`ls!(stc;blc;nmc;lsc)
 sgn:{(s[1];*/s:1(1 -1@0>)\x)}
 jn:{(`st;(*|stc[y])/*|+stc'x@1)}
-dmpl:{$[`ls~t:*x;(`st;"[",(", "/*|+o'x@1),"]");`st~t;(`st;(1=#s)_`k@s:*|stc@x);stc@x]}
+dmpl:{$[`ls~t:*x;(`st;"[",(", "/*|+o'x@1),"]");`st~t;(`st;(1=#s)_`k@s:*|stc@x);`nl~t;(`st;"null");stc@x]}
 dbg:{`0:x,`k@y}
 MXRND:32767
 `prng@0
@@ -49,13 +49,13 @@ FNS:*''+(("TRUE";0;{y;(x;(`bl;1))})
  (,"`";    1;{[e;a];(t;s):*a;(e;(`st;"\n"/."\\",s))})
  ("QUIT";  1;{})
  (,"!";    1;{[e;a];(t;b):blc(*a);(e;(`bl;~b))})
- ("LENGTH";1;{[e;a];(t;s):*a;(e;#s)})
- ("DUMP";  1;{[e;a];`0:#/|1#:\*|r:dmpl@*a;(e;r)})
+ ("LENGTH";1;{[e;a];(e;(`nm;#*|lsc(*a)))})
+ ("DUMP";  1;{[e;a];`1:#/|1#:\*|r:dmpl@*a;(e;r)})
  ("OUTPUT";1;{[e;a];(t;s):stc(*a);`1:$["\\"=*|s;-1_s;s,"\n"];(e;(`nl;()))})
- ("ASCII"; 1;{[e;a];(t;b):*a;(e;(`st`nm@t~`st;$[`st~t;0+*b;`nm~t;`c$b;`err@"ASCII"]))})
+ ("ASCII"; 1;{[e;a];(t;b):*a;(e;(`st`nm@t~`st;$[`st~t;0+*b;`nm~t;,`c$b;`err@"ASCII"]))})
  (,"~";    1;{[e;a];(e;(`nm;-:*|nmc@*a))})
  (,"[";    1;{[e;a];(e;**|lsc@*a)})
- (,"]";    1;{[e;a];(e;(`ls;1_*|lsc@*a))})
+ (,"]";    1;{[e;a];(t;v):*a;(e;$[`st~t;(t;1_v);(`ls;1_*|lsc@*a)])})
  (,",";    1;{[e;a];(e;(`ls;,*a))})
  (,"+";    2;{(a;b):y;v:*|+(a;(cnv@*a)b);(x;(*a;((,/;+/)`nm~*a)@v))})
  (,"-";    2;{(a;b):y;v:*|+(a;(cnv`nm)b);(x;(`nm;-/v))})
@@ -73,7 +73,7 @@ FNS:*''+(("TRUE";0;{y;(x;(`bl;1))})
  ("WHILE"; 2;{})
  ("IF";    3;{})
  ("GET";   3;{[e;a](e;(t;@[*|((stc@;::)`ls~t:*r)r:*a;(*sl)+!*|sl:*|+nmc'1_a]))})
- ("SUBSTITUTE";4;{[e;a](s;n):(*|+)'(((::;`ls,,,stc@)@';stc')`ls`st?**a;nmc')@'a(0 3;1 2);(e;(**a;?[s[0];+\n;s[1]]))}))
+ ("SET";   4;{[e;a](t;n):*a;c:(s;n):(*|+)'((stc';lsc')0^`st`ls?t;nmc')@'a(0 3;1 2);(e;(**a;?[s[0];+\n;s[1]]))}))
 
 art:!/2#FNS
 FN:!/FNS[0 2]
