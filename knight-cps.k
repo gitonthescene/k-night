@@ -99,7 +99,7 @@ or:{[a;b]seq(a;dup;ifb[nul;seq(chp;b)])}
 
 cal:{[k;e;as](e;-1_as;(*|as)[k])}
 evl:{[k;e;as]c:stc(*|as);(e;-1_as;(cmp@prs[*|c])[k])}
-qt:{[k;e;as](e;,(`qt;*|*|as);())}
+qt:{[k;e;as](e;,(`qt;*|nmc(*|as));())}
 
 CTRL:!/+((";";{(a;b):cmp'x;seq(a;chp;b)})
   ("I";{(p;t;e):cmp'x;seq(p;ifb[t;e])})
@@ -116,4 +116,5 @@ cmp:{$[|/`st`nm=t:*x;:nil[x];`vr~t;:get[,*|x];^(!FN)?*n:x[1];`err@n;~^(!CTRL)?*n
 run0:{{#*|x}{(e;as;c):x;c[e;as]}/(x;();y[z])}
 run:{**1_run0[()!();cmp@prs@x;{(x;y;())}]}
 
-$["-e"~*x;run@x[1];"--"~*x;{1}{run@1:1}/();#x;run@1:*x;];
+hdl:{$[`qt~*x;`exit@*|x;]}
+$["-e"~*x;hdl@run@x[1];"--"~*x;{1}{run@1:1}/();#x;run@1:*x;]
