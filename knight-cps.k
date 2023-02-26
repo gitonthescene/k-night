@@ -24,7 +24,7 @@ tok:{(*:';::)@'(&~=':r)_/:(r:2{tr[x;y]}\cl@x;x)}
 dsp:{{x,$[|/rm=y;();`FN=t:CL@*z;`fn,/:z;`st=t;,`st,,1_z;`nm=t;,`nm,10/z-"0";,(t;z)]}/[()].(tok x)}
 
 /----------- parser -----------/
-stc:{(t;v):x;$[`ls~t;(`st;"\n"/*|+stc'v);`nl~t;(`st;"");`bl~t;(`st;("false";"true")v);`nm~t;(`st;$[~v;"0";((0>*s)#"-"),`c$"0"+10\*|s:sgn@v]);x]}
+stc:{(t;v):x;$[`ls~t;(`st;"\n"/*|+stc'v);`nl~t;(`st;"");`bl~t;(`st;("false";"true")v);`nm~t;(`st;"",$[~v;"0";((0>*s)#"-"),`c$"0"+10\*|s:sgn@v]);x]}
 blc:{(t;v):x;$[`st~t;(`bl;~~#v);`nl~t;(`bl;0);`nm~t;(`bl;~0=v);`ls~t;(`bl;1&#v);x]}
 s2n:{r*~^r:(1 -1"-"=*x)*`I$#/|(,t),+/&\~"0:"'t:(|/"+-"=*x)_x:(&\~^" \n\r\t"?)_x}
 nmc:{(t;v):x;$[`st~t;(`nm;s2n@v);`nl~t;(`nm;0);`bl~t;(`nm;v);`ls~t;(`nm;#v);x]}
@@ -72,8 +72,8 @@ FNS:*''+(("TRUE";0;{y;(x;(`bl;1))})
  (,"=";    2;{})
  ("WHILE"; 2;{})
  ("IF";    3;{})
- ("GET";   3;{[e;a](e;(t;@[*|((stc@;::)`ls~t:*r)r:*a;(*sl)+!*|sl:*|+nmc'1_a]))})
- ("SET";   4;{[e;a](t;n):*a;c:(s;n):(*|+)'((stc';lsc')0^`st`ls?t;nmc')@'a(0 3;1 2);(e;(**a;?[s[0];+\n;s[1]]))}))
+ ("GET";   3;{[e;a](e;(t;(("";())`ls~t),@[*|((stc@;::)`ls~t:*r)r:*a;(*sl)+!*|sl:*|+nmc'1_a]))})
+ ("SET";   4;{[e;a](t;n):*a;c:(s;n):(*|+)'((stc';lsc')0^`st`ls?t;nmc')@'a(0 3;1 2);(e;(t;?[s[0];+\n;s[1]]))}))
 
 art:!/2#FNS
 FN:!/FNS[0 2]
