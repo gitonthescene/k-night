@@ -78,7 +78,7 @@ FNS:*''+(("TRUE";0;{y;(x;(`bl;1))})
 art:!/2#FNS
 FN:!/FNS[0 2]
 
-prs:{r:{$[~`fn~*y;(,y),x;(#x)<a:art@**|y;`err@"not enough args:",*|y;(,(y,,a#x)),a_x]}/[();|dsp@x];$[1<#r;`err@"spurious code";*r]}
+prs:{r:{$[~`fn~*y;(,y),x;(#x)<a:art@**|y;`err@"not enough args:",*|y;(,(y,,(),a#x)),a_x]}/[();|dsp@x];$[1<#r;`err@"spurious code";*r]}
 nil:{{[v;k;e;as](e;as,,v;k)}[x;y;;]}
 dup:{[k;e;as](e;as,,*as;k)}
 chp:{[k;e;as](e;-1_as;k)}
