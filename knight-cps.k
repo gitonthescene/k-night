@@ -105,7 +105,7 @@ CTRL:*''+(("IF"; 3;{(p;t;e):cmp'x;seq(p;ifb[t;e])})
 art,:!/2#CTRL
 CTRL:!/CTRL[0 2]
 
-cmp:{$[|/`st`nm=t:*x;:nil[x];`vr~t;:get[,*|x];^(!art)?*n:x[1];`err@n;~^(!CTRL)?*n;:CTRL[*n][x[2]];cll[cl0[#x[2];FN[*n]];o'x[2]]]}
+cmp:{$[|/`st`nm=t:*x;nil[x];`vr~t;get[,*|x];^(!art)?*n:x[1];`err@n;~^(!CTRL)?*n;CTRL[*n][x[2]];cll[cl0[#x[2];FN[*n]];o'x[2]]]}
 run0:{{#*|x}{(e;as;c):x;c[e;as]}/(x;();y[z])}
 run:{**1_run0[()!();cmp@prs@x;{(x;y;())}]}
 
