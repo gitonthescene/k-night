@@ -43,11 +43,7 @@ FNS:*''+(("TRUE";0;{y;(x;(`bl;1))})
  ("RANDOM";0;{y;(x;(`nm;*1?MXRND))})
  (,"@";  0;{y;(x;(`ls;()))})
  (,":";    1;{(x;*y)})
- ("EVAL";  1;{})
- ("BLOCK"; 1;{})
- ("CALL";  1;{})
  (,"`";    1;{[e;a];(t;s):*a;(e;(`st;"\n"/."\\",s))})
- ("QUIT";  1;{})
  (,"!";    1;{[e;a];(t;b):blc(*a);(e;(`bl;~b))})
  ("LENGTH";1;{[e;a];(e;(`nm;#*|lsc(*a)))})
  ("DUMP";  1;{[e;a];`1:#/|1#:\*|r:dmpl@*a;(e;r)})
@@ -66,12 +62,6 @@ FNS:*''+(("TRUE";0;{y;(x;(`bl;1))})
  (,"<";    2;{(a;b):y;v:*|+(a;(cnv@*a)b);(x;(`bl;@[(</;</;*>:;*>:);`nm`bl`st`ls?*a]v))})
  (,">";    2;{(a;b):y;v:*|+(a;(cnv@*a)b);(x;(`bl;@[(>/;>/;*<:;*<:);`nm`bl`st`ls?*a]v))})
  (,"?";    2;{[e;a];(e;(`bl;~/a))})
- (,"&";    2;{})
- (,"|";    2;{})
- (,";";    2;{})
- (,"=";    2;{})
- ("WHILE"; 2;{})
- ("IF";    3;{})
  ("GET";   3;{[e;a](e;(t;(("";())`ls~t),@[*|((stc@;::)`ls~t:*r)r:*a;(*sl)+!*|sl:*|+nmc'1_a]))})
  ("SET";   4;{[e;a](t;n):*a;c:(s;n):(*|+)'((stc';lsc')0^`st`ls?t;nmc')@'a(0 3;1 2);(e;(t;?[s[0];+\n;s[1]]))}))
 
@@ -101,18 +91,21 @@ cal:{[k;e;as](e;-1_as;(*|as)[k])}
 evl:{[k;e;as]c:stc(*|as);(e;-1_as;(cmp@prs[*|c])[k])}
 qt:{[k;e;as](e;,(`qt;*|nmc(*|as));())}
 
-CTRL:!/+((";";{(a;b):cmp'x;seq(a;chp;b)})
-  ("I";{(p;t;e):cmp'x;seq(p;ifb[t;e])})
-  ("W";{(p;b):cmp'x;wh[p;b]})
-  ("=";{(n;v):x;seq(cmp[v];set[,*|n])})
-  ("&";{and.(cmp'x)})
-  ("|";{or.(cmp'x)})
-  ("B";{nil@cmp[*x]})
-  ("C";{seq(cmp[*x];cal)})
-  ("E";{seq(cmp[*x];evl)})
-  ("Q";{seq(cmp[*x];qt)}))
+CTRL:*''+(("IF"; 3;{(p;t;e):cmp'x;seq(p;ifb[t;e])})
+  (";";      2;{(a;b):cmp'x;seq(a;chp;b)})
+  ("WHILE";  2;{(p;b):cmp'x;wh[p;b]})
+  ("=";      2;{(n;v):x;seq(cmp[v];set[,*|n])})
+  ("&";      2;{and.(cmp'x)})
+  ("|";      2;{or.(cmp'x)})
+  ("BLOCK";  1;{nil@cmp[*x]})
+  ("CALL";   1;{seq(cmp[*x];cal)})
+  ("EVAL";   1;{seq(cmp[*x];evl)})
+  ("QUIT";   1;{seq(cmp[*x];qt)}))
 
-cmp:{$[|/`st`nm=t:*x;:nil[x];`vr~t;:get[,*|x];^(!FN)?*n:x[1];`err@n;~^(!CTRL)?*n;:CTRL[*n][x[2]];cll[cl0[#x[2];FN[*n]];o'x[2]]]}
+art,:!/2#CTRL
+CTRL:!/CTRL[0 2]
+
+cmp:{$[|/`st`nm=t:*x;:nil[x];`vr~t;:get[,*|x];^(!art)?*n:x[1];`err@n;~^(!CTRL)?*n;:CTRL[*n][x[2]];cll[cl0[#x[2];FN[*n]];o'x[2]]]}
 run0:{{#*|x}{(e;as;c):x;c[e;as]}/(x;();y[z])}
 run:{**1_run0[()!();cmp@prs@x;{(x;y;())}]}
 
