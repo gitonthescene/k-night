@@ -68,13 +68,12 @@ FNS:*''+(("TRUE";0;{y;(x;(`bl;1))})
 art:!/2#FNS
 FN:!/FNS[0 2]
 
-prs:{r:{$[~`fn~*y;(,y),x;(#x)<a:art@**|y;`err@"not enough args:",*|y;(,(y,,(),a#x)),a_x]}/[();|dsp@x];$[1<#r;`err@"spurious code";*r]}
 nil:{{[v;k;e;as](e;as,,v;k)}[x;y;;]}
 dup:{[k;e;as](e;as,,*as;k)}
 chp:{[k;e;as](e;-1_as;k)}
 nul:{[k;e;as](e;as;k)}
 
-cl0:{{[n;a;k;e;as];(e;r):a[e;(-n)#as];;(e;((-n)_as),,r;k)}[x;y;z;;]}
+cl0:{{[n;f;k;e;as];(e;r):f[e;(-n)#as];(e;((-n)_as),,r;k)}[x;y;z;;]}
 seq:{{{y[x]}/[(*|x)[y];|-1_x]}[x;y]}
 cll:{seq[y,x]}
 
@@ -88,26 +87,31 @@ and:{[a;b]seq(a;dup;ifb[seq(chp;b);nul])}
 or:{[a;b]seq(a;dup;ifb[nul;seq(chp;b)])}
 
 cal:{[k;e;as](e;-1_as;(*|as)[k])}
-evl:{[k;e;as]c:stc(*|as);(e;-1_as;(cmp@prs[*|c])[k])}
+evl:{[k;e;as]c:stc(*|as);(e;-1_as;(cmp@*|c)[k])}
 qt:{[k;e;as](e;,(`qt;*|nmc(*|as));())}
 
-CTRL:*''+(("IF"; 3;{(p;t;e):cmp'x;seq(p;ifb[t;e])})
-  (";";      2;{(a;b):cmp'x;seq(a;chp;b)})
-  ("WHILE";  2;{(p;b):cmp'x;wh[p;b]})
-  ("=";      2;{(n;v):x;seq(cmp[v];set[,*|n])})
-  ("&";      2;{and.(cmp'x)})
-  ("|";      2;{or.(cmp'x)})
-  ("BLOCK";  1;{nil@cmp[*x]})
-  ("CALL";   1;{seq(cmp[*x];cal)})
-  ("EVAL";   1;{seq(cmp[*x];evl)})
-  ("QUIT";   1;{seq(cmp[*x];qt)}))
+CTRL:*''+(("IF"; 3;{(p;t;e):x'z;seq(p;ifb[t;e])})
+  (";";      2;{(a;b):x'z;seq(a;chp;b)})
+  ("WHILE";  2;{(p;b):x'z;wh[p;b]})
+  ("=";      2;{(n;v):z;seq(x[v];set[,*|y@n])})
+  ("&";      2;{and.(x'z)})
+  ("|";      2;{or.(x'z)})
+  ("BLOCK";  1;{nil@x[*z]})
+  ("CALL";   1;{seq(x[*z];cal)})
+  ("EVAL";   1;{seq(x[*z];evl[x])})
+  ("QUIT";   1;{seq(x[*z];qt)}))
 
 art,:!/2#CTRL
 CTRL:!/CTRL[0 2]
 
-cmp:{$[|/`st`nm=t:*x;nil[x];`vr~t;get[,*|x];^(!art)?*n:x[1];`err@n;~^(!CTRL)?*n;CTRL[*n][x[2]];cll[cl0[#x[2];FN[*n]];o'x[2]]]}
+prs0:{*{(p;n):y;t:x@z;$[~`fn~*t;(p;z,n);^a:art@*t@1;`err@`k@`t;(@[p;a#n;:;z];z,a_n)]}[x]/[(!#x;!0);|!#x]}
+prs:{p:prs0@x;chk[x;p];p}
+chk:{$[#m:&~(art@*'*|+x@!c)=.c:#'^'[;?y]@=y;`err@"valence: ",`k@*|+x@m;]}
+cmp0:{z0:x@z;$[|/`st`nm=t:*z0;nil[z0];`vr~t;get[,*|z0];^(!art)?*n:z0[1];`err@n;~^(!CTRL)?*n;CTRL[*n][o[x;y];x;y[z]];cll[cl0[#y[z];FN[*n]];o[x;y]'y[z]]]}
+cmp:{t:dsp@x;p:prs@t;cmp0[t;((!#p)!(#p)#,!0),^'[;?p]@=p;0]}
+
 run0:{{#*|x}{(e;as;c):x;c[e;as]}/(x;();y[z])}
-run:{**1_run0[()!();cmp@prs@x;{(x;y;())}]}
+run:{**1_run0[()!();cmp@x;{(x;y;())}]}
 
 hdl:{$[`qt~*x;`exit@*|x;]}
 $["-e"~*x;hdl@run@x[1];"--"~*x;{1}{run@1:1}/();#x;run@1:*x;]
